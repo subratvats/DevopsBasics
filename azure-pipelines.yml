@@ -25,9 +25,16 @@ steps:
     Contents: '**/*.war'
     TargetFolder: '$(build.artifactstagingdirectory)'
 
-- task: PublishBuildArtifacts@1
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#     ArtifactName: 'webapp.war'
+#     publishLocation: 'FilePath'
+#     TargetPath: '\automationstt23484.file.core.windows.net\artifact\appartifact'
+
+- task: CmdLine@2
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'webapp.war'
-    publishLocation: 'FilePath'
-    TargetPath: '\automationstt23484.file.core.windows.net\artifact\appartifact'
+    script: |
+      cd $(Build.ArtifactStagingDirectory)
+      pwd;ls
+      az storage blob upload --account-name automationstt23484 --account-key $(Acct_key) \ --container-name remotestatebackend --file * --name webapp.war --overwrite
