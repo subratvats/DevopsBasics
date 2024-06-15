@@ -1,4 +1,4 @@
-# Maven   xjhl
+# Maven   
 # Build your Java project and run tests with Apache Maven.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
@@ -25,18 +25,11 @@ steps:
     Contents: '**/*.war'
     TargetFolder: '$(build.artifactstagingdirectory)'
 
+##NOTE:  for this to use we created a service principal(App registration) and created client secret in that and added role assignment "Storage Blob Data Contributor" on sp at subscription level and created serviceconnection  Azure Resource Manager(manual)
+ 
+## The Storage Blob Data Contributor role provides sufficient permissions to manage blob data in your Azure Storage account, including reading, writing, and deleting blobs. 
+## However, if you need to (e.g., creating containers, managing account keys, configuring settings), you might need broader permissions provided by the Contributor role.
 
-# - task: AzureCLI@2
-#   inputs:
-#     azureSubscription: 'dataupload'
-#     scriptType: 'bash'
-#     scriptLocation: 'inlineScript'
-#     inlineScript: |
-#       echo "$(Build.ArtifactStagingDirectory) is the path"
-#       cd $(Build.ArtifactStagingDirectory)
-#       pwd;ls
-#       az storage blob upload --account-name automationstt23484 --account-key $(Acct_key) \ 
-#       --container-name remotestatebackend --file /home/vsts/work/1/a/webapp/target/webapp.war --name webapp.war --overwrite
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'dataupload'
