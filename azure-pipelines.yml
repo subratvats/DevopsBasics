@@ -36,4 +36,4 @@ steps:
       cd $(Build.ArtifactStagingDirectory)
       pwd;ls
       az storage blob upload --account-name automationstt23484 --account-key $(Acct_key) \ 
-      --container-name remotestatebackend --file /home/vsts/work/1/a/webapp.war --name webapp.war --overwrite
+      --container-name remotestatebackend --file /home/vsts/work/1/a/target/webapp.war --name webapp.war --overwrite
