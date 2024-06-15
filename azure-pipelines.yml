@@ -45,10 +45,10 @@ steps:
     inlineScript: |
       echo "$(Build.ArtifactStagingDirectory) is the path"
       cd $(Build.ArtifactStagingDirectory)
-      pwd;ls -lrt; ls -l webapp;
+      pwd;ls -lrt; ls -l webapp/target;
       az storage blob upload --account-name automationstt23484 \
         --container-name remotestatebackend \
-        --file **/*.war \
+        --file $(Build.ArtifactStagingDirectory)/webapp/target/*.war \
         --name webapp.war \
         --overwrite \
         --auth-mode login
