@@ -26,6 +26,17 @@ steps:
     TargetFolder: '$(build.artifactstagingdirectory)'
 
 
+# - task: AzureCLI@2
+#   inputs:
+#     azureSubscription: 'dataupload'
+#     scriptType: 'bash'
+#     scriptLocation: 'inlineScript'
+#     inlineScript: |
+#       echo "$(Build.ArtifactStagingDirectory) is the path"
+#       cd $(Build.ArtifactStagingDirectory)
+#       pwd;ls
+#       az storage blob upload --account-name automationstt23484 --account-key $(Acct_key) \ 
+#       --container-name remotestatebackend --file /home/vsts/work/1/a/webapp/target/webapp.war --name webapp.war --overwrite
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'dataupload'
@@ -34,6 +45,10 @@ steps:
     inlineScript: |
       echo "$(Build.ArtifactStagingDirectory) is the path"
       cd $(Build.ArtifactStagingDirectory)
-      pwd;ls
-      az storage blob upload --account-name automationstt23484 --account-key $(Acct_key) \ 
-      --container-name remotestatebackend --file /home/vsts/work/1/a/webapp/target/webapp.war --name webapp.war --overwrite
+      pwd;ls -lrt; ls -l webapp;
+      az storage blob upload --account-name automationstt23484 \
+        --container-name remotestatebackend \
+        --file **/*.war \
+        --name webapp.war \
+        --overwrite \
+        --auth-mode login
