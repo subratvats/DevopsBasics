@@ -10,6 +10,17 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- task: Cache@2
+  displayName: 'Cache Maven dependencies'
+  inputs:
+    key: 'maven | "$(Agent.OS)" | **/pom.xml'
+    path: '$(System.M2_HOME)'
+    cacheHitVar: 'CACHE_RESTORED'
+
+# Set the Maven cache folder
+- script: |
+    echo "##vso[task.setvariable variable=MavenCacheFolder]$M2_HOME"
+  displayName: 'Set Maven cache folder'
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -20,6 +31,14 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+
+- task: Cache@2
+  inputs:
+    key: 'maven | "$(Agent.OS)" | **/pom.xml'
+    path: $(MavenCacheFolder)
+    cacheHitVar: CACHE_RESTORED
+  displayName: 'Save Maven dependencies to cache'
+  condition: ne(variables.CACHE_RESTORED, 'true')
 - task: CopyFiles@2
   inputs:
     Contents: '**/*.war'
