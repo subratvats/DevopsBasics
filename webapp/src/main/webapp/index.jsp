@@ -32,8 +32,9 @@
 <body>
     <div class="container">
         <h1>Subrat Vats Learning</h1>
-        <h2>Learn QA Automation Tools + DevOps Tools CI/CD Pipelines from Scratch with Practice</h2>
-        <h2>Good Luck! We are almost done with the course. Thank you and welcome to v2.</h2>
+        <h2>Learn Automation Tools + DevOps Tools CI/CD Pipelines from Scratch with Practice</h2>
+        <h2><strong>v1</strong></h2>
+        <h2>Good Luck! We are almost done with the course. Thank you.</h2>
     </div>
 </body>
 </html>
