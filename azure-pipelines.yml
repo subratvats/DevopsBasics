@@ -34,6 +34,11 @@ steps:
     ArtifactName: 'warfile'
     publishLocation: 'Container'
     MaxArtifactSize: 0
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Pipeline.Workspace)'
+    publishLocation: 'pipeline'
 ##NOTE:  for this to use we created a service principal(App registration) and created client secret in that and added role assignment "Storage Blob Data Contributor" on sp at subscription level and created serviceconnection  Azure Resource Manager(manual)
  
 ## The Storage Blob Data Contributor role provides sufficient permissions to manage blob data in your Azure Storage account, including reading, writing, and deleting blobs. 
